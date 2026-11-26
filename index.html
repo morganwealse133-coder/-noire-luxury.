@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>NOIRÉ LUXURY | Redefining Style</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:24px 7%;border-bottom:1px solid #292929}
+.logo{font-size:25px;letter-spacing:6px;color:#d6b779;font-weight:bold}
+nav a{color:white;text-decoration:none;margin-left:25px;font-size:12px;letter-spacing:2px}
+.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;padding:60px 8%;background:linear-gradient(90deg,#080808 10%,#08080899 100%),url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600') center/cover}
+.hero p{color:#d6b779;letter-spacing:5px;font-size:12px;margin-bottom:20px}
+.hero h1{font-size:clamp(45px,9vw,100px);max-width:750px;line-height:1.05;margin-bottom:25px}
+.hero h1 span{color:#d6b779}
+.button{display:inline-block;width:fit-content;background:#d6b779;color:#080808;padding:16px 30px;text-decoration:none;font-size:12px;letter-spacing:2px;border:0;cursor:pointer}
+.section{padding:85px 7%}
+.section-title{text-align:center;margin-bottom:45px}
+.section-title p{color:#d6b779;font-size:11px;letter-spacing:4px;margin-bottom:15px}
+.section-title h2{font-size:34px;letter-spacing:3px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.product img{width:100%;height:380px;object-fit:cover}
+.product h3{margin-top:18px;font-size:15px;letter-spacing:2px}
+.product p{color:#d6b779;margin-top:10px}
+.order{display:inline-block;margin-top:15px;color:#080808;background:#d6b779;padding:12px 18px;text-decoration:none;font-size:11px;letter-spacing:1px}
+.about{background:#111;text-align:center}
+.about h2{color:#d6b779;letter-spacing:4px;margin-bottom:25px}
+.about p{color:#aaa;max-width:650px;margin:auto;line-height:1.9}
+.cart-section{text-align:center;background:#151515}
+.cart-section h2{color:#d6b779;margin-bottom:15px}
+.cart-count{color:#d6b779;font-size:20px;margin-bottom:20px}
+footer{padding:35px 7%;text-align:center;border-top:1px solid #292929;color:#888;font-size:12px}
+@media(max-width:700px){
+header{flex-direction:column;gap:20px}
+nav a{margin:0 7px;font-size:10px}
+.products{grid-template-columns:1fr}
+.product img{height:420px}
+.hero{min-height:70vh}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">NOIRÉ</div>
+<nav>
+<a href="#home">HOME</a>
+<a href="#collection">COLLECTION</a>
+<a href="#about">ABOUT</a>
+<a href="#cart">CART</a>
+</nav>
+</header>
+<section class="hero" id="home">
+<p>THE ART OF LUXURY</p>
+<h1>STYLE IS<br><span>YOUR</span> IDENTITY.</h1>
+<a class="button" href="#collection">EXPLORE COLLECTION</a>
+</section>
+<section class="section" id="collection">
+<div class="section-title">
+<p>CURATED FOR YOU</p>
+<h2>THE COLLECTION</h2>
+</div>
+<div class="products">
+<div class="product">
+<img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800" alt="Signature fashion">
+<h3>THE SIGNATURE LOOK</h3>
+<p>₦85,000</p>
+<button class="order" onclick="addToCart('THE SIGNATURE LOOK',85000)">ADD TO CART</button>
+</div>
+<div class="product">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800" alt="Modern fashion">
+<h3>MODERN ESSENTIALS</h3>
+<p>₦65,000</p>
+<button class="order" onclick="addToCart('MODERN ESSENTIALS',65000)">ADD TO CART</button>
+</div>
+<div class="product">
+<img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800" alt="Luxury fashion">
+<h3>THE LUXURY EDIT</h3>
+<p>₦95,000</p>
+<button class="order" onclick="addToCart('THE LUXURY EDIT',95000)">ADD TO CART</button>
+</div>
+</div>
+</section>
+<section class="section cart-section" id="cart">
+<h2>YOUR SHOPPING CART</h2>
+<div class="cart-count">Items: <span id="cartCount">0</span></div>
+<div id="cartItems">Your cart is empty.</div>
+<h3 id="total" style="margin:20px 0;color:#d6b779">Total: ₦0</h3>
+<button class="button" onclick="checkout()">ORDER THROUGH WHATSAPP</button>
+</section>
+<section class="section about" id="about">
+<h2>BEYOND FASHION.</h2>
+<p>NOIRÉ LUXURY represents confidence, individuality and timeless elegance. Discover a collection designed for those who refuse to blend in.</p>
+</section>
+<footer>
+© 2026 NOIRÉ LUXURY. ALL RIGHTS RESERVED.
+</footer>
+<script>
+let cart=[];
+function addToCart(name,price){
+cart.push({name,price});
+updateCart();
+}
+function updateCart(){
+document.getElementById("cartCount").textContent=cart.length;
+let items=document.getElementById("cartItems");
+let total=0;
+if(cart.length===0){
+items.textContent="Your cart is empty.";
+}else{
+items.innerHTML=cart.map(item=>{
+total+=item.price;
+return `<p style="margin:12px">${item.name} — ₦${item.price.toLocaleString("en-NG")}</p>`;
+}).join("");
+}
+document.getElementById("total").textContent="Total: ₦"+total.toLocaleString("en-NG");
+}
+function checkout(){
+if(cart.length===0){
+alert("Your shopping cart is empty.");
+return;
+}
+let message="Hello NOIRÉ LUXURY, I want to order:\n";
+let total=0;
+cart.forEach(item=>{
+message+=item.name+" - ₦"+item.price.toLocaleString("en-NG")+"\n";
+total+=item.price;
+});
+message+="\nTotal: ₦"+total.toLocaleString("en-NG");
+let phone="2340000000000";
+window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
+}
+</script>
+</body>
+</html>
